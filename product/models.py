@@ -9,3 +9,9 @@ class Vegetables(models.Model):
     is_available = models.BooleanField(default=True)
     description = models.TextField(null=True, blank=True)
     objects = models.Manager()
+
+
+class Categories(models.Model):
+    name = models.CharField(max_length=255)
+    category_objects = models.CharField(max_length=255)
+    objects = models.Manager()

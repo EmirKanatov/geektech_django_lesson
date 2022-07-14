@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Vegetables
+from .models import Vegetables, Categories
 
 # Register your models here.
 
 admin.site.register(Vegetables)
+admin.site.register(Categories)

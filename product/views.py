@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
-from .models import Vegetables
+from .models import Vegetables, Categories
 
 
 # Create your views here.
@@ -13,3 +13,9 @@ def pomidor(request):
     pomidor_object = Vegetables.objects.get(id=1)
     desc = pomidor_object.description
     return HttpResponse(desc)
+
+
+def category(request):
+    category_objects = Categories.objects.all()
+    context = {"all_categories": category_objects}
+    return render(request, "category_list.html", context)
