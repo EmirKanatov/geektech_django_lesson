@@ -1,4 +1,5 @@
 <!doctype html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,14 +7,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-
+    <link rel="stylesheet" href="{% static 'css/product_style.css'%}" type="text/css">
 </head>
 <body>
     {% for vegetable in all_vegetables %}
         <ul>
             <li>{{ vegetable.name }}
-                <div> {{ vegetable.description }} </div>
-                <div> {{ vegetable.price }} </div>
+                <div class="desc"> {{ vegetable.description }} </div>
+                <div class="price"> {{ vegetable.price }} </div>
             </li>
         </ul>
     {% endfor %}

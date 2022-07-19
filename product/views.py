@@ -12,7 +12,7 @@ def homepage(request):
 def pomidor(request):
     pomidor_object = Vegetables.objects.get(id=1)
     desc = pomidor_object.description
-    return HttpResponse(desc)
+    return render(request, "pomidor.html")
 
 
 def category(request):
