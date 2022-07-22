@@ -19,3 +19,7 @@ def category(request):
     category_objects = Categories.objects.all()
     context = {"all_categories": category_objects}
     return render(request, "category_list.html", context)
+
+
+def pricingtable(request):
+    return render(request, "price_table.html")

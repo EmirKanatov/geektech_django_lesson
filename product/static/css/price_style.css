@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    font-family: 'Ibarra Real Nova', serif;
+    font-size: 15px;
+    line-height: 1.6;
+    background-color: #ededed;
+}
+
+*
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+.intro {
+    width: 100%;
+    height: 100wh;
+}
+
+ 
+.header {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 15px 15px;
+}
+
+.header-text {
+    text-align: center;
+    font-size: 30px;
+    color: #007ef9;
+}
+
+.page-header {
+    margin: 0 auto;
+}
+
+.page-desc {
+    text-align: center;
+}
+
+.box-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 70px;
+}
+
+.box-item {
+    width: 30%;
+    height: 100%;
+    background-color: #ffffff;
+}
+
+.box-header {
+    text-align: center;
+    font-size: 30px;
+    color: #007ef9;
+    margin: 20px;
+    position: relative;
+}
+
+.box-header::after {
+    content: "";
+    display: block;
+    background-color: darkgrey;
+    width: 100%;
+    height: 1px;
+    opacity: 0.5;
+
+    position: absolute;
+    top: 50px;
+    left: 0;
+    z-index: 1;
+}
+
+
+.box-decs {
+    text-align: center;
+    margin: 10px 0px;
+}
+
+.box-conditions {
+    text-align: center;
+}
+
+.price {
+    text-align: center;
+    margin: 10px;
+    font-size: 25px;
+}
+
+.button {
+    text-align: center;
+    margin: 10px 15px;
+    border-radius: 5px;
+    color: #ffffff;
+    background-color: #007ef9;
+}
