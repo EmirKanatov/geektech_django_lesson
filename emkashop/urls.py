@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from product.views import homepage, pomidor, category
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -23,4 +25,4 @@ urlpatterns = [
     path('', homepage),
     path('pomidor/', pomidor),
     path('categories/', category)
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
