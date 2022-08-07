@@ -21,5 +21,11 @@ def category(request):
     return render(request, "category_list.html", context)
 
 
-def pricingtable(request):
+def pricing_table(request):
     return render(request, "price_table.html")
+
+
+def vegetable_detail(request, id):
+    vegetable = Vegetables.objects.get(id=id)
+    context = {'vegetable' : vegetable}
+    return render(request, 'vegetable_info.html', context)
