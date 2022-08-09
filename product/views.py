@@ -29,3 +29,10 @@ def vegetable_detail(request, id):
     vegetable = Vegetables.objects.get(id=id)
     context = {'vegetable' : vegetable}
     return render(request, 'vegetable_info.html', context)
+
+
+def category_detail(request, id):
+    category_obj = Categories.objects.get(id=id)
+    vegetable_list = Vegetables.objects.filter(category=category_obj)
+    context = {'all_vegetables' : vegetable_list}
+    return render(request, "product_list.html", context)

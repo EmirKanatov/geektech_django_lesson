@@ -1,5 +1,35 @@
 .desc {
-    background-color: rgb(210, 643, 533);
-    font-size: 28px;
+    font-size: 16px;
 }
 
+.veg_table {
+    display: flex;
+}
+
+.veg_name{
+    font-size: 18px;
+}
+
+.veg_name:hover{
+    transform: scale(1.2);
+    transition: 0.5s;
+}
+
+a#vegetable_name{
+    text-decoration-line: none;
+    color: black;
+}
+
+a#vegetable_name:hover{
+    color: blue;
+    transition: 0.3s;
+    text-decoration-line: underline;
+}
+
+.veg_item {
+    padding: 0px 5px;
+    margin: 3px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 6px;
+}
