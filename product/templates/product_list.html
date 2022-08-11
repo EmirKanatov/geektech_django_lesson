@@ -12,13 +12,16 @@
     <link rel="stylesheet" href="{% static 'css/product_style.css'%}" type="text/css">
 </head>
 <body>
-        <div class="veg_table">
+        <div>
+        <a href="{% url 'vegetable_add' %}" class="btn btn-success">Добавить</a>
+        </div>
+            <div class="veg_table">
             {% for vegetable in all_vegetables %}
             <div class="veg_item">
                 <div>
                     <div class="veg_name"><a id="vegetable_name" href="{% url 'vegetables' vegetable.id %}">{{ vegetable.name }}</a></div>
                     <div class="desc"> {{ vegetable.description }} </div>
-                    <div class="price"> {{ vegetable.price }} </div>
+                    <div class="price"> {{ vegetable.price }} сом </div>
                 </div>
             </div>
             {% endfor %}

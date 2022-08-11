@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/core/sign_in.css'%}" type="text/css">
+    {% endblock %}
+{% block content %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ auth_form.as_p }}
+        <button>Войти</button>
+    </form>
+
+
+{% endblock %}
