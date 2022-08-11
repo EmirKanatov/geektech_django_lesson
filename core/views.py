@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from .models import Feedback
 from django.contrib.auth import login, authenticate
 from .forms import FeedbackCreateForm, SignInForm
-
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 def feedback_view(request):
@@ -45,3 +45,17 @@ def sign_in(request):
             return HttpResponse('Авторизация провалена')
     context = {"auth_form": SignInForm()}
     return render(request, 'sign-in.html', context)
+
+
+def log_in(request):
+    form = UserCreationForm()
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('sign-in')
+
+    context = {'form': form}
+    return render(request, "register_page.html", context)
+
