@@ -1,9 +1,16 @@
 from django.shortcuts import render, HttpResponse, redirect
+from django.template.defaulttags import url
+
+from core.decorators import should_be_staff
 from .models import Vegetables, Categories
 from .forms import VegetableCreateForm
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import ObjectDoesNotExist
 
+
 # Create your views here.
+
+
 def homepage(request):
     products = Vegetables.objects.all()
     context = {"all_vegetables": products}
@@ -23,7 +30,7 @@ def pricing_table(request):
 def vegetable_detail(request, id):
     try:
         vegetable = Vegetables.objects.get(id=id)
-        context = {'vegetable' : vegetable}
+        context = {'vegetable': vegetable}
         return render(request, 'vegetable_info.html', context)
     except ObjectDoesNotExist:
         return HttpResponse("Такой страницы не существует", status=404)
@@ -32,11 +39,16 @@ def vegetable_detail(request, id):
 def category_detail(request, id):
     category_obj = Categories.objects.get(id=id)
     vegetable_list = Vegetables.objects.filter(category=category_obj)
-    context = {'all_vegetables' : vegetable_list}
+    context = {'all_vegetables': vegetable_list}
     return render(request, "product_list.html", context)
 
 
+@login_required(login_url='/sign-in/')
+@should_be_staff
+#   @permission_required("product.add_vegetables")
 def vegetable_add(request):
+    #   if not request.user.is_staff:
+    #   return HttpResponse("У вас нет доступа!!!", status=403)
     context = {}
 
     if request.method == "GET":

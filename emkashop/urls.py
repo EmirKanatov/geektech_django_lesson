@@ -19,14 +19,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from product.views import homepage, category, pricing_table, vegetable_add, vegetable_detail, category_detail,\
     vegetable_update, vegetable_delete
-from core.views import feedback_view, feedback_form_view, sign_in, log_in
+from core.views import feedback_view, feedback_form_view, sign_in, log_in, sign_out
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', homepage),
+    path('', homepage, name='homepage'),
     path('categories/', category, name='categories'),
     path('categories/<int:id>/', category_detail, name='category'),
-    path('pricing_table/', pricing_table, name='homepage'),
+    path('pricing_table/', pricing_table, name='pricing_table'),
     path('vegetables/<id>', vegetable_detail, name='vegetables'),
     path('vegetable-add/', vegetable_add, name='vegetable_add'),
     path('vegetables/update/<id>', vegetable_update, name='vegetable-update'),
@@ -34,5 +34,6 @@ urlpatterns = [
     path('feedback/', feedback_view, name='feedback'),
     path('feedback_form/', feedback_form_view, name='feedback_form'),
     path('sign-in/', sign_in, name="sign-in"),
-    path('log-in', log_in, name='log-in')
+    path('log-in', log_in, name='log-in'),
+    path('sign-out', sign_out, name='sign-out')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

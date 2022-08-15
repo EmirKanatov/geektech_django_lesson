@@ -1,10 +1,14 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse, redirect
 from .models import Feedback
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from .forms import FeedbackCreateForm, SignInForm
 from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
+
+
+@login_required(login_url='/sign-in/')
 def feedback_view(request):
     if request.method == "POST":
         data = request.POST
@@ -19,6 +23,7 @@ def feedback_view(request):
     return render(request, "feedback.html")
 
 
+@login_required(login_url='/sign-in/')
 def feedback_form_view(request):
     context = {}
     if request.method == "POST":
@@ -39,10 +44,14 @@ def sign_in(request):
             password=request.POST["password"]
         )
         if user is not None:
-            login(request, user)
-            return redirect('homepage')
+            if user.is_active:
+                login(request, user)
+                return HttpResponse('Авторизация прошла успешно')
+            else:
+                return HttpResponse('Авторизация провалена')
         else:
-            return HttpResponse('Авторизация провалена')
+            return HttpResponse('Неверный логин или пароль')
+
     context = {"auth_form": SignInForm()}
     return render(request, 'sign-in.html', context)
 
@@ -59,3 +68,7 @@ def log_in(request):
     context = {'form': form}
     return render(request, "register_page.html", context)
 
+
+def sign_out(request):
+    logout(request)
+    return redirect("homepage")
