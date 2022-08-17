@@ -6,21 +6,34 @@ from .models import Vegetables, Categories
 from .forms import VegetableCreateForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.generic import ListView, DetailView
 
 
 # Create your views here.
 
 
-def homepage(request):
-    products = Vegetables.objects.all()
-    context = {"all_vegetables": products}
-    return render(request, "product_list.html", context)
+# def homepage(request):
+#     products = Vegetables.objects.all()
+#     context = {"all_vegetables": products}
+#     return render(request, "product_list.html", context)
 
 
-def category(request):
-    category_objects = Categories.objects.all()
-    context = {"all_categories": category_objects}
-    return render(request, "category_list.html", context)
+class VegetableListAsView(ListView):
+    model = Vegetables
+    template_name = "product_list.html"
+
+    queryset = Vegetables.objects.filter(is_available=True)
+
+
+class CategoryListView(ListView):
+    model = Categories
+    template_name = "category_list.html"
+
+
+# def category(request):
+#     category_objects = Categories.objects.all()
+#     context = {"all_categories": category_objects}
+#     return render(request, "category_list.html", context)
 
 
 def pricing_table(request):
@@ -36,11 +49,29 @@ def vegetable_detail(request, id):
         return HttpResponse("Такой страницы не существует", status=404)
 
 
-def category_detail(request, id):
-    category_obj = Categories.objects.get(id=id)
-    vegetable_list = Vegetables.objects.filter(category=category_obj)
-    context = {'all_vegetables': vegetable_list}
-    return render(request, "product_list.html", context)
+class VegetableDetailAsView(DetailView):
+    model = Vegetables
+    template_name = "vegetable_info.html"
+
+
+# def category_detail(request, id):
+#     category_obj = Categories.objects.get(id=id)
+#     vegetable_list = Vegetables.objects.filter(category=category_obj)
+#     context = {'all_vegetables': vegetable_list}
+#     return render(request, "product_list.html", context)
+
+
+class CategoryDetailAsView(DetailView):
+    model = Categories
+    template_name = "product_list.html"
+
+    def get_object(self):
+        return Categories.objects.get(id=self.kwargs["pk"])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["object_list"] = Vegetables.objects.filter(category=self.object)
+        return context
 
 
 @login_required(login_url='/sign-in/')
@@ -59,7 +90,7 @@ def vegetable_add(request):
         vegetable_form = VegetableCreateForm(request.POST)
         if vegetable_form.is_valid():
             new_vegetable = vegetable_form.save()
-            return redirect(vegetable_detail, id=new_vegetable.id)
+            return redirect('vegetables', pk=new_vegetable.id)
         else:
             return HttpResponse("Форма не валидна", status=400)
 

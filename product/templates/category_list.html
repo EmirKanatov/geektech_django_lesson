@@ -8,9 +8,9 @@
     <title>Document</title>
 </head>
 <body>
-    {% for category in all_categories %}
+    {% for categories in object_list %}
         <ul>
-            <li><a href="{% url 'category' category.id %}">{{ category.name }}</a>
+            <li><a href="{% url 'category' categories.id %}">{{ categories.name }}</a>
             </li>
         </ul>
     {% endfor %}

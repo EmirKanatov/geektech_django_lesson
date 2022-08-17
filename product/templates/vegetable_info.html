@@ -11,12 +11,12 @@
         <link rel="stylesheet" href="{% static 'css/pomidor_style.css'%}" type="text/css">
     <title>Pomidor</title>
 </head>
-    <h2> {{ vegetable.name }} </h2>
-    <div> {{ vegetable.description }}</div>
-    <div> {{ vegetable.calories }} калорий</div>
-    <h3> {{ vegetable.price }} сом</h3>
-    <a class="btn btn-warning" href="{% url 'vegetable-update' vegetable.id %}">Изменить</a>
-    <form action="{% url 'vegetable-delete' vegetable.id %}" method="POST">
+    <h2> {{ vegetables.name }} </h2>
+    <div> {{ vegetables.description }}</div>
+    <div> {{ vegetables.calories }} калорий</div>
+    <h3> {{ vegetables.price }} сом</h3>
+    <a class="btn btn-warning" href="{% url 'vegetable-update' vegetables.id %}">Изменить</a>
+    <form action="{% url 'vegetable-delete' vegetables.id %}" method="POST">
         {% csrf_token %}
         <button class="btn btn-danger">Удалить</button>
     </form>

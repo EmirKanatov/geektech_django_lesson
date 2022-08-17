@@ -17,17 +17,17 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from product.views import homepage, category, pricing_table, vegetable_add, vegetable_detail, category_detail,\
-    vegetable_update, vegetable_delete
+from product.views import CategoryListView, pricing_table, VegetableListAsView, vegetable_add, vegetable_detail, \
+    vegetable_update, vegetable_delete, VegetableDetailAsView, CategoryDetailAsView
 from core.views import feedback_view, feedback_form_view, sign_in, log_in, sign_out
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', homepage, name='homepage'),
-    path('categories/', category, name='categories'),
-    path('categories/<int:id>/', category_detail, name='category'),
+    path('', VegetableListAsView.as_view(), name='homepage'),
+    path('categories/', CategoryListView.as_view(), name='categories'),
+    path('categories/<int:pk>/', CategoryDetailAsView.as_view(), name='category'),
     path('pricing_table/', pricing_table, name='pricing_table'),
-    path('vegetables/<id>', vegetable_detail, name='vegetables'),
+    path('vegetables/<pk>', VegetableDetailAsView.as_view(), name='vegetables'),
     path('vegetable-add/', vegetable_add, name='vegetable_add'),
     path('vegetables/update/<id>', vegetable_update, name='vegetable-update'),
     path('vegetables/delete/<id>', vegetable_delete, name='vegetable-delete'),
